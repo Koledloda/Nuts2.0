@@ -1,0 +1,14 @@
+{
+  "name": "my-app",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "client"
+  ],
+  "scripts": {
+    "start": "npm run dev --workspace client",
+    "dev": "npm run dev --workspace client",
+    "build": "npm run build --workspace client",
+    "lint": "npm run lint --workspace client"
+  }
+}
