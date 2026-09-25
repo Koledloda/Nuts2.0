@@ -1,6 +1,9 @@
 import * as React from 'react';
 import Start from '../components/Start';
 import Hits from '../components/Hits';
+import Premium from '../components/Premium';
+import Polza from '../components/Polza';
+import Eczod from '../components/Eczod';
 
 export default function Main() {
   return (
@@ -18,6 +21,9 @@ export default function Main() {
             button='Перейти в каталог'
         />
         <Hits />
+        <Premium />
+        <Polza />
+        <Eczod />
     </React.Fragment>
   );
 }
