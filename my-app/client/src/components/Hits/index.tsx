@@ -36,6 +36,12 @@ export default function Hits() {
             </div>
             <div className='content'>
                 <div className='section_dev'>
+                    <div className='menu'>
+                        <p>Популярные</p>
+                        <p>Премиум</p>
+                        <p>Полезные</p>
+                        <p>Экзотические</p>
+                    </div>
                     {hits.map((hit) => (
                         <article className='card' key={hit.id}>
                             <img className='card_img' src={hit.img} alt={hit.title}/>
