@@ -34,13 +34,15 @@ const hits = [
 export default function Hits() {
     return (
         <main className='block'>
-            <div className='block_name'>
-                <h1 className='block_name_name'>Экзотические</h1>
-                <h1 className='block_name_nxname'>необычные товары</h1>
-            </div>
-            <p className='block_sub'>В нашем магазине вы найдете любые виды орехов и семян</p>
             <div className='content'>
                 <div className='section'>
+                    <div className='eczod_header'>
+                        <div className='block_name'>
+                            <h1 className='block_name_name'>Экзотические</h1>
+                            <h1 className='block_name_nxname'>необычные товары</h1>
+                        </div>
+                        <p className='block_sub'>В нашем магазине вы найдете любые виды орехов и семян</p>
+                    </div>
                     {hits.map((hit) => (
                         <article className='card' key={hit.id}>
                             <img className='card_img' src={hit.img} alt={hit.title}/>

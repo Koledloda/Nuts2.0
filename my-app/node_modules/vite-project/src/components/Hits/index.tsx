@@ -27,19 +27,21 @@ const hits = [
 export default function Hits() {
     return (
         <main className='block'>
-            <div className='block_name'>
-                <h1 className='block_name_name'>Популярные</h1>
-                <h1 className='block_name_nxname'>хиты продаж</h1>
-            </div>
-            <p className='block_sub'>В нашем магазине вы найдете любые виды орехов и семян</p>
-            <div className='content'>
-                <div className='menu'>
-                    <p>Популярные</p>
-                    <p>Премиум</p>
-                    <p>Полезные</p>
-                    <p>Экзотические</p>
+            <div className='block_header'>
+                <div className='block_name'>
+                    <h1 className='block_name_name'>Популярные</h1>
+                    <h1 className='block_name_nxname'>хиты продаж</h1>
                 </div>
-                <div className='section'>
+                <p className='block_sub'>В нашем магазине вы найдете любые виды орехов и семян</p>
+            </div>
+            <div className='content'>
+                <div className='section_dev'>
+                    <div className='menu'>
+                        <p>Популярные</p>
+                        <p>Премиум</p>
+                        <p>Полезные</p>
+                        <p>Экзотические</p>
+                    </div>
                     {hits.map((hit) => (
                         <article className='card' key={hit.id}>
                             <img className='card_img' src={hit.img} alt={hit.title}/>
