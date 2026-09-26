@@ -51,10 +51,11 @@ export default function Vybor() {
         <div className="Grid01">
           {vybor.map((card) => (
             <div className="Card" key={card.number}>
-              <div className="Number01">{card.number}</div>
+
               <div className="CardContent">
                 <img className="Image" src={card.image} alt="" />
                 <div className="TextBlock">
+                  <div className="Number01">{card.number}</div>
                   <h3 className="CardTitle">{card.title}</h3>
                   <p className="CardText">{card.text}</p>
                 </div>
