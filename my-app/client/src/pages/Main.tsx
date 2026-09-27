@@ -5,10 +5,13 @@ import Premium from '../components/Premium';
 import Polza from '../components/Polza';
 import Eczod from '../components/Eczod';
 import Vybor from '../components/Vybor';
+import Header from '../components/Header';
+import Footer from '../components/footer';
 
 export default function Main() {
   return (
     <React.Fragment>
+      <Header/>
       <Start
             title='Интернет-магазин орехов и семечек'
             highlight='"Ореховый Рай"'
@@ -26,6 +29,7 @@ export default function Main() {
         <Polza />
         <Eczod />
         <Vybor />
+        <Footer/>
     </React.Fragment>
   );
 }

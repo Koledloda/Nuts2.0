@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import * as React from 'react';
 import './style.css';
 import { NavLink } from 'react-router-dom';
@@ -7,37 +6,37 @@ const header = [
    {
     id: 1,
     item: 'Главная' ,
-    link: ,
+    link: '',
    },
 
    {
     id: 2,
     item: 'О компании',
-    link: ,
+    link: '',
    },
 
    {
     id: 3,
     item: 'Каталог',
-    link: ,
+    link: '',
    },
 
    {
     id: 4,
     item: 'Доставка и оплата',
-    link: ,
+    link: '',
    },
 
    {
     id: 5,
     item: 'Гарантии',
-    link: ,
+    link: '',
    },
 
    {
     id: 6,
     item: 'Контакты',
-    link: ,
+    link: '',
    },
 
 ];
@@ -54,7 +53,7 @@ export default function Header() {
                     <div>Доставляем в регионы</div>
                 </div>
                 <img className="header-logo"  src="https://415022.lp.tobiz.net/img/350x0/0f37fba05b3c41fe5c5da1f593623cdc.png"/>
-                <a>8 822 121 22 33 ​</a>          
+                <a className="header-number"> 8 822 121 22 33 ​</a>          
             </div>
             
     <nav className="header_nav">
@@ -70,19 +69,6 @@ export default function Header() {
         </NavLink>
       ))}
     </nav>
-=======
-export default function Header() {
-  return (
-    <header>
-      <nav aria-label="Main navigation">
-        <a href="/">Главная</a>
-        <a href="/catalog">Каталог</a>
-        <a href="/o-nas">О нас</a>
-        <a href="/portfolio">Портфолио</a>
-        <a href="/otzyvy">Отзывы</a>
-        <a href="/kontakty">Контакты</a>
-      </nav>
->>>>>>> 49c5d40470c157e0e1edf9f8168192ad1b4e4727
     </header>
   );
 }
