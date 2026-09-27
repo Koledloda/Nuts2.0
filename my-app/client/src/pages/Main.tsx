@@ -1,12 +1,14 @@
 import * as React from 'react';
+import Header from '../components/Header';
 import Start from '../components/Start';
 import Hits from '../components/Hits';
 import Premium from '../components/Premium';
 import Polza from '../components/Polza';
 import Eczod from '../components/Eczod';
 import Vybor from '../components/Vybor';
-import Header from '../components/Header';
-import Footer from '../components/footer';
+import Sup from '../components/Sup';
+import Footer from '../components/Footer';
+
 
 export default function Main() {
   return (
@@ -29,7 +31,8 @@ export default function Main() {
         <Polza />
         <Eczod />
         <Vybor />
-        <Footer/>
+        <Sup />
+        <Footer />
     </React.Fragment>
   );
 }
