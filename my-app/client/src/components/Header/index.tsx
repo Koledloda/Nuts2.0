@@ -46,7 +46,7 @@ const header = [
 export default function Header() {
   return (
     <header className="header">
-            <div className="header-top">
+            <div className="header-top" >
                 <div className="header-infa">
                     <div>Интернет-магазин орехов и семечек</div>
                     <div>Работаем в Москве и МО</div>
