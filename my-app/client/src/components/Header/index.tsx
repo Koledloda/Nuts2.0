@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as React from 'react';
 import './style.css';
 import { NavLink } from 'react-router-dom';
@@ -69,6 +70,19 @@ export default function Header() {
         </NavLink>
       ))}
     </nav>
+=======
+export default function Header() {
+  return (
+    <header>
+      <nav aria-label="Main navigation">
+        <a href="/">Главная</a>
+        <a href="/catalog">Каталог</a>
+        <a href="/o-nas">О нас</a>
+        <a href="/portfolio">Портфолио</a>
+        <a href="/otzyvy">Отзывы</a>
+        <a href="/kontakty">Контакты</a>
+      </nav>
+>>>>>>> 49c5d40470c157e0e1edf9f8168192ad1b4e4727
     </header>
   );
 }

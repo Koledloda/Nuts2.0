@@ -1,0 +1,11 @@
+.section {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    flex: 1;
+    min-width: 0;
+}
+
+.premium_header {
+    grid-column: 1 / -1;
+}

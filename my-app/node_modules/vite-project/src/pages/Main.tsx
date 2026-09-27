@@ -4,6 +4,7 @@ import Hits from '../components/Hits';
 import Premium from '../components/Premium';
 import Polza from '../components/Polza';
 import Eczod from '../components/Eczod';
+import Vybor from '../components/Vybor';
 
 export default function Main() {
   return (
@@ -24,6 +25,7 @@ export default function Main() {
         <Premium />
         <Polza />
         <Eczod />
+        <Vybor />
     </React.Fragment>
   );
 }
