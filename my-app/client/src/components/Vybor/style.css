@@ -1,15 +1,16 @@
 .Body01 {
-	background-color: rgb(224, 205, 199);
+	background-color: #c4b4af;
 	padding: 40px 24px 60px;
 	box-sizing: border-box;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
 .Headline01 {
-	color: rgb(196, 106, 43);
+	color: rgb(139, 69, 19);
 	font-size: 34px;
 	font-weight: 700;
-	margin: 0 0 28px 0;
+	margin: 0 auto 28px;
+	max-width: 900px;
 }
 
 .Highlight01 {
@@ -18,7 +19,7 @@
 
 .Panel01 {
 	background-color: rgba(93, 86, 82, 0.95);
-	max-width: auto;
+	max-width: 900px;
 	margin: 0 auto;
 	padding: 14px 18px 0;
 	box-sizing: border-box;
@@ -51,7 +52,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	min-height: 360px;
+	min-height: 300px; 
 	padding: 0;
 	overflow: hidden;
 }
@@ -86,13 +87,13 @@
 	display: block;
 	position: absolute;
 	left: 50%;
-	bottom: 16px;
-	transform: translateX(-50%);
-	width: min(100%, 270px);
+	top: 50%;           
+	transform: translate(-50%, -50%);  
+	width: min(115%, 310px);           
 	height: auto;
 	object-fit: contain;
-	filter: brightness(0.72) saturate(0.9);
-	opacity: 0.9;
+	filter: brightness(0.58) saturate(0.85);
+	opacity: 0.85;
 	z-index: 1;
 	pointer-events: none;
 }
