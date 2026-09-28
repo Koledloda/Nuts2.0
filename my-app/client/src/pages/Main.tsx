@@ -6,6 +6,9 @@ import Premium from '../components/Premium';
 import Polza from '../components/Polza';
 import Eczod from '../components/Eczod';
 import Vybor from '../components/Vybor';
+import Highquality from '../components/Highquality';
+import Bigvybor from '../components/Bigvybor';
+import  Otzyve  from '../components/Otzyve';
 import Sup from '../components/Sup';
 import Footer from '../components/Footer';
 
@@ -31,6 +34,9 @@ export default function Main() {
         <Polza />
         <Eczod />
         <Vybor />
+        <Highquality />
+        <Bigvybor />
+        <Otzyve />
         <Sup />
         <Footer />
     </React.Fragment>
