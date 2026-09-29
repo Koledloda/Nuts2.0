@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Main from './pages/Main';
+import Kontakty from './pages/Kontakty';
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '/kontakty',
-    element: <div>kontakty</div>,
+    element: <Kontakty />,
   },
 ]);

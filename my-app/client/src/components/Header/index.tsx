@@ -5,7 +5,7 @@ const header = [
    {
     id: 1,
     item: 'Главная' ,
-    link: '',
+    link: '/',
    },
 
    {
@@ -35,7 +35,7 @@ const header = [
    {
     id: 6,
     item: 'Контакты',
-    link: '',
+    link: '/kontakty',
    },
 
 ];
