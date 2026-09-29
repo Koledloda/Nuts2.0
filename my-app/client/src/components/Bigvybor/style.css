@@ -11,7 +11,7 @@
 	max-width: 900px;
 	margin: 0 auto;
 	min-height: 383px;
-	background-color: #4a453e; /* запасной цвет, пока фото не загрузилось */
+	background-color: #4a453e; 
 	box-sizing: border-box;
 	padding: 120px 32px 0;
 }

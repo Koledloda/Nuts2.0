@@ -1,0 +1,79 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  position: relative;
+  background: #fff;
+  width: 525px;
+  max-width: 90%;
+  padding: 40px;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  color: #000;
+}
+
+.modal-title {
+  margin: 0;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-label {
+  display: block;
+  margin-top: 24px;
+  font-size: 20px;
+}
+
+.modal-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 12px;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.modal-submit {
+  width: 100%;
+  margin-top: 32px;
+  padding: 18px;
+  border: none;
+  background: #d9ea7c;
+  font-family: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.modal-note {
+  margin: 24px 0 0;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.modal-note a {
+  color: #7a6a6a;
+  text-decoration: underline;
+}

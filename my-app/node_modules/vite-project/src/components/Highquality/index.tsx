@@ -1,5 +1,6 @@
-import * as React from 'react';
 import './style.css';
+import { useState } from 'react';
+import Formazakaz from '../Formazakaz';
 
 const quality = {
   title: 'Высокое качество',
@@ -10,6 +11,7 @@ const quality = {
 };
 
 export default function Quality() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="Body02">
       <div className="Split02">
@@ -17,9 +19,14 @@ export default function Quality() {
           <div className="Content02">
             <h2 className="Title02">{quality.title}</h2>
             <p className="Text02">{quality.text}</p>
-            <a className="Button02" href="#order">
+             <button
+              type="button"
+              className="Button02"
+              onClick={() => setIsOpen(true)}
+            >
               {quality.button}
-            </a>
+            </button>
+             {isOpen && <Formazakaz onClose={() => setIsOpen(false)} />}
           </div>
         </div>
 
