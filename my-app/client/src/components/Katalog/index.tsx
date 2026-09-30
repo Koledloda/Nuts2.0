@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import './style.css';
+import './katalog.css';
 
 const katalog = [
     {
@@ -29,9 +29,9 @@ const katalog = [
 
 export default function Katalog() {
     return (
-        <main>
-            <div>
-                <h1>Каталог товаров</h1>
+        <main className='katalog'>
+            <div className='katalog-header'>
+                <h1 className='title'>Каталог товаров</h1>
                 <p>
                     <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link>
                 </p>
@@ -41,8 +41,8 @@ export default function Katalog() {
                     <article className='card' key={cat.id}>
                         <img src={cat.img} alt={cat.title}/>
                         <div>
-                            <h2>Популярные</h2>
-                            <button>Смотреть товары</button>
+                            <h2 className='card-title'>{cat.title}</h2>
+                            <button className='btn'>Смотреть товары</button>
                         </div>
                     </article>
                 ))}

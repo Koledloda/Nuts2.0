@@ -8,7 +8,7 @@ export default function Sup() {
             className="photo"
             src="https://415022.lp.tobiz.net/img/1575x1225/09812030b1f5adfd6cee561686d5e535.jpg"
             />
-            <div className="title">
+            <div>
                 <div className="headline_1">Если есть вопросы,</div>
                 <div className="headline_2">напишите нам</div>
                 <div className="headline_3">Мы ответим вам в ближайшее время</div>
@@ -39,8 +39,7 @@ export default function Sup() {
                     <span className="underline">Положение</span>{' '}
                     и{' '}
                     <span className="underline">Согласие</span>{' '}
-                    на обработку 
-                    <p>персональных данных.</p>
+                    на обработку персональных данных.
                 </div>
         </sup>
     );
