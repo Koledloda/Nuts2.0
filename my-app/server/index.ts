@@ -1,4 +1,4 @@
-import express from 'express';
+/* import express from 'express';
 import {userRouters} from './src/users/user.routers';
 import { PrismaClient } from './generated/prisma/client';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
@@ -101,4 +101,21 @@ app.post('/api/test/users', async (req:  any, res: any) => {
 
 app.listen(PORT, () => {
   console.log(`Сервер: http://localhost:${PORT}`);
+});
+ */
+
+import express from 'express';
+import {userRouters} from './src/users/user.routers';
+import { PrismaClient } from './generated/prisma/client';
+import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
+
+const adapter = new PrismaBetterSqlite3({
+  url: process.env.DATABASE_URL || 'file:./dev.db'
+});
+
+const app: any = express();
+const PORT = 3000;
+
+app.get('/', (req: any, res: any) => {
+  res.send('Привет, Express');
 });

@@ -1,4 +1,4 @@
-
+/* 
 
 
 let users = [
@@ -91,4 +91,4 @@ export const deleteUser = (req: any, res: any) => {
   users.splice(index, 1);
   
   res.status(204).send();
-}
+} */
