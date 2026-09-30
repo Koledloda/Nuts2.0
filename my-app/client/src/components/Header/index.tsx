@@ -11,7 +11,7 @@ const header = [
    {
     id: 2,
     item: 'О компании',
-    link: '',
+    link: '/about',
    },
 
    {
@@ -23,7 +23,7 @@ const header = [
    {
     id: 4,
     item: 'Доставка и оплата',
-    link: '',
+    link: '/dostavkaOplata',
    },
 
    {
