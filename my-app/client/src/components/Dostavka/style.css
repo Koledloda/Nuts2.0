@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  background: #d9c4bf;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.Body05 {
+  max-width: 1316px;
+  margin: 0 auto;
+  padding: 58px 24px 120px;
+  font-size: 19px;
+  line-height: 27px;
+}
+
+.Title05 {
+  margin: 0 0 120px;
+  font-size: 45px;
+  font-weight: 400;
+  color: #424242;
+}
+
+.Split05 {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.Left05 { max-width: 770px; }
+.Right05 { flex: 0 0 507px; }
+
+.Text05 { margin: 0 0 4px; }
+.List05 { margin: 0 0 14px; padding-left: 55px; }
+
+.Photo05 {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.Row05 {
+  display: flex;
+  gap: 18px;
+  margin-top: 139px;
+}
+
+.Photo05Small {
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 656 / 490;
+  object-fit: cover;
+}
