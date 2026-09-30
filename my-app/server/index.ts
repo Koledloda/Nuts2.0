@@ -113,9 +113,15 @@ const adapter = new PrismaBetterSqlite3({
   url: process.env.DATABASE_URL || 'file:./dev.db'
 });
 
+const prisma = new PrismaClient({ adapter });
+
 const app: any = express();
 const PORT = 3000;
 
 app.get('/', (req: any, res: any) => {
   res.send('Привет, Express');
+});
+
+app.listen(PORT, () => {
+  console.log(`Сервер: http://localhost:${PORT}`);
 });

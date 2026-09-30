@@ -17,7 +17,7 @@ const header = [
    {
     id: 3,
     item: 'Каталог',
-    link: '',
+    link: '/catalog',
    },
 
    {
