@@ -47,9 +47,9 @@ export default function Header() {
     <header className="header">
             <div className="header-top" >
                 <div className="header-infa">
-                    <div>Интернет-магазин орехов и семечек</div>
-                    <div>Работаем в Москве и МО</div>
-                    <div>Доставляем в регионы</div>
+                    <div className='header-infa'>Интернет-магазин орехов и семечек</div>
+                    <div className='header-infa'>Работаем в Москве и МО</div>
+                    <div className='header-infa'>Доставляем в регионы</div>
                 </div>
                 <img className="header-logo"  src="https://415022.lp.tobiz.net/img/350x0/0f37fba05b3c41fe5c5da1f593623cdc.png"/>
                 <a className="header-number"> 8 822 121 22 33 ​</a>          

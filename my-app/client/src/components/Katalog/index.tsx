@@ -29,23 +29,25 @@ const katalog = [
 
 export default function Katalog() {
     return (
-        <main>
-            <div>
-                <h1>Каталог товаров</h1>
+        <main className='section_inner width1170'>
+            <div className='catalogTitleBlock'>
+                <h1 className='catalogTitle'>Каталог товаров</h1>
                 <p>
                     <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link>
                 </p>
             </div>
-            <div>
-                {katalog.map((cat) => (
-                    <article className='card' key={cat.id}>
-                        <img src={cat.img} alt={cat.title}/>
-                        <div>
-                            <h2>Популярные</h2>
-                            <button>Смотреть товары</button>
-                        </div>
-                    </article>
-                ))}
+            <div className="category">
+                <div>
+                    {katalog.map((cat) => (
+                        <article className='category' key={cat.id}>
+                            <img src={cat.img} alt={cat.title}/>
+                            <div>
+                                <h2>{cat.title}</h2>
+                                <button>Смотреть товары</button>
+                            </div>
+                        </article>
+                    ))}
+                </div>
             </div>
         </main>
     )
