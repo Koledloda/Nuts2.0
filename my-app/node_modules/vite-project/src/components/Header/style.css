@@ -4,7 +4,7 @@ body {
 }
 
 .header{
-    background-color:#cfd4d7 ;
+    background-color:#cfd4d7 !important ;
 }
 
 .header-top {
@@ -38,7 +38,7 @@ body {
     margin-top:10px;
 }
 
-.header_nav{
+.header__nav{
     display: flex;
     font-size: 20px;
     text-decoration: none;

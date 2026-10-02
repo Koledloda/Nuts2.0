@@ -1,30 +1,26 @@
 .sup {
     display: grid;
-    grid-template-columns: minmax(0, 700px) minmax(0, 500px);
+    grid-template-columns: 700px 500px;
     gap: 30px;
-
     width: 100%;
     max-width: 1230px;
     margin: 0 auto;
-    padding: 0 20px;
-
-    box-sizing: border-box;
-
     background-color: #A59691;
 }
 
 .photo {
     grid-row: 1 / 4;
-
-    width: 100%;
-    max-width: 700px;
+    width: 700px;
     height: 570px;
-
     object-fit: cover;
-    display: block;
 }
 
-
+.title {
+    grid-column: 2;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+}
 
 .sogl {
     grid-column: 2;
@@ -59,9 +55,7 @@
     grid-column: 2;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: 450px;
-    box-sizing: border-box;
+    width: 450px;
 }
 
 .contact-form label {
@@ -69,13 +63,11 @@
 }
 
 .contact-form input {
-    width: 100%;
     padding: 10px 0;
     background: transparent;
     border: none;
     border-bottom: 1px solid white;
     outline: none;
-    box-sizing: border-box;
 }
 
 .contact-form button {
@@ -87,31 +79,6 @@
     font-size: 15px;
 }
 
-
 .underline {
     text-decoration: underline;
-}
-
-@media (max-width: 800px) {
-    .sup {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .photo {
-        grid-row: auto;
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-    }
-
-    .title,
-    .contact-form,
-    .sogl {
-        grid-column: 1;
-    }
-
-    .contact-form {
-        max-width: 100%;
-    }
 }

@@ -1,6 +1,6 @@
 import './style.css';
 
-const hits = [
+const poleznie = [
     {
         id: 1,
         img: 'https://415022.lp.tobiz.net/img/400x400/e5093ee29d011d36ef795fb40e5067ea.jpg',
@@ -31,7 +31,7 @@ const hits = [
     },
 ];
 
-export default function Hits() {
+export default function Poleznie() {
     return (
         <main className='block'>
             <div className='content'>
@@ -43,13 +43,13 @@ export default function Hits() {
                         </div>
                         <p className='block_sub'>В нашем магазине вы найдете любые виды орехов и семян</p>
                     </div>
-                    {hits.map((hit) => (
-                        <article className='card' key={hit.id}>
-                            <img className='card_img' src={hit.img} alt={hit.title}/>
+                    {poleznie.map((poleznie) => (
+                        <article className='card' key={poleznie.id}>
+                            <img className='card_img' src={poleznie.img} alt={poleznie.title}/>
                             <div className='card_content'>
-                                <h2>{hit.title}</h2>
-                                <p>{hit.description}</p>
-                                <p>{hit.price}</p>
+                                <h2>{poleznie.title}</h2>
+                                <p>{poleznie.description}</p>
+                                <p>{poleznie.price}</p>
                                 <button className='sell'>Заказать</button>
                             </div>
                         </article>  
