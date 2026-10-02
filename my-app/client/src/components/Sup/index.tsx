@@ -1,9 +1,9 @@
-import * as React from 'react';
 import './style.css';
 
 export default function Sup() {
     return(
-        <sup className="sup">
+        <section className="contact-section">
+            <div className="sup">
             <img
             className="photo"
             src="https://415022.lp.tobiz.net/img/1575x1225/09812030b1f5adfd6cee561686d5e535.jpg"
@@ -41,6 +41,7 @@ export default function Sup() {
                     <span className="underline">Согласие</span>{' '}
                     на обработку персональных данных.
                 </div>
-        </sup>
+            </div>
+        </section>
     );
 }

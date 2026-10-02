@@ -1,52 +1,90 @@
-body {
-  margin: 0;
-  background: #d9c4bf;
+.PaymentSection {
+  box-sizing: border-box;
+  width: 100%;
+  background: #dcc5bf;
 }
 
-.Body03 {
-  padding: 0 20px 60px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 24px;
-  line-height: 37.5px;
-  color: #000;
+.PaymentInner {
+  box-sizing: border-box;
+  max-width: 1316px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+  color: #212121;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
 }
 
-.Title03 {
-  margin: 0 0 48px;
-  font-size: 55px;
-  line-height: 66px;
-  font-weight: 400;
-  color: #555;
-}
-
-.Split03 {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 60px;
-}
-
-.Left03 {
-  flex: 1;
-  min-width: 0;
-}
-
-.Right03 {
-  flex: 0 0 38%;
-}
-
-.Text03 {
-  margin: 0 0 30px;
-}
-
-.List03 {
+.PaymentTitle {
   margin: 0 0 40px;
-  padding-left: 50px;
+  color: #424242;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
-.Photo03 {
+.PaymentSplit {
+  display: grid;
+  grid-template-columns: minmax(280px, 38%) minmax(0, 1fr);
+  align-items: start;
+  gap: 48px;
+}
+
+.PaymentVisual img {
   display: block;
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
+}
+
+.PaymentCopy {
+  min-width: 0;
+}
+
+.PaymentGroup + .PaymentGroup {
+  margin-top: 32px;
+}
+
+.PaymentGroup h3 {
+  margin: 0 0 12px;
+  color: #424242;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.PaymentGroup ul {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.PaymentGroup li + li {
+  margin-top: 8px;
+}
+
+@media (max-width: 800px) {
+  .PaymentInner {
+    padding: 40px 24px 56px;
+  }
+
+  .PaymentSplit {
+    grid-template-columns: minmax(220px, 38%) minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .PaymentTitle {
+    margin-bottom: 28px;
+    font-size: 34px;
+  }
+
+  .PaymentSplit {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .PaymentVisual img {
+    max-width: 420px;
+  }
 }

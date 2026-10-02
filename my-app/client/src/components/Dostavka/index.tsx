@@ -2,27 +2,24 @@ import './style.css';
 
 const dostavka = {
   title: 'Доставка',
-  listTitle: 'Способы доставки',
-  items: [
-    { term: 'Собственный транспорт поставщика.', desc: 'Многие компании используют рефрижераторы для поддержания необходимого температурного режима. Например, для охлаждённого мяса температура в грузовом отсеке должна быть от 0 до +4 °C, а для замороженного — ниже −8 °C.' },
-    { term: 'Самовывоз со склада.', desc: 'Некоторые поставщики предлагают этот вариант, особенно для крупных заказов.' },
-    { term: 'Сотрудничество с транспортными компаниями.', desc: 'Для доставки в отдалённые регионы или при больших объёмах груза.' },
+  sections: [
+    {
+      title: 'Способы доставки:',
+      items: [
+        { term: 'Собственный транспорт поставщика.', text: 'Многие компании используют рефрижераторы для поддержания необходимого температурного режима. Например, для охлаждённого мяса температура в грузовом отсеке должна быть от 0 до +4 °C, а для замороженного — ниже −8 °C.' },
+        { term: 'Самовывоз со склада.', text: 'Некоторые поставщики предлагают этот вариант, особенно для крупных заказов.' },
+        { term: 'Сотрудничество с транспортными компаниями.', text: 'Для доставки в отдалённые регионы или при больших объёмах груза.' },
+      ],
+    },
+    {
+      title: 'Сроки доставки:',
+      items: [
+        { text: 'В пределах города или региона — обычно 1–2 дня.' },
+        { text: 'В другие регионы — от 1 до 5 дней в зависимости от расстояния.' },
+      ],
+    },
   ],
-  listTitle2: 'Сроки доставки',
-  items2: [
-    { desc: 'В пределах города или региона — обычно 1–2 дня.' },
-    { desc: 'В другие регионы — от 1 до 5 дней в зависимости от расстояния.' },
-  ],
-  text: [
-    'Способы доставки:',
-    'Собственный транспорт поставщика. Многие компании используют рефрижераторы для поддержания необходимого температурного режима. Например, для охлаждённого мяса температура в грузовом отсеке должна быть от 0 до +4 °C, а для замороженного — ниже −8 °C.',
-    'Самовывоз со склада. Некоторые поставщики предлагают этот вариант, особенно для крупных заказов.',
-    'Сотрудничество с транспортными компаниями. Для доставки в отдалённые регионы или при больших объёмах груза.',
-    'Сроки доставки:',
-    'В пределах города или региона — обычно 1–2 дня.',
-    'В другие регионы — от 1 до 5 дней в зависимости от расстояния.',
-  ],
-  image: 'https://415022.lp.tobiz.net/img/788x1050/c716dc67734b6e4dfbafc044121ffd2e.jpg',
+  image: 'https://415022.lp.tobiz.net/img/450x600/4c52be60d9611b03f5bcba3acfa286dd.jpg',
 };
 
 const photos = [
@@ -35,38 +32,51 @@ export { dostavka, photos };
 
 export default function Dostavka() {
   return (
-    <div className="Body05">
-      <h2 className="Title05">{dostavka.title}</h2>
+    <section className="DeliverySection">
+      <div className="DeliveryInner">
+        <h2 className="DeliveryTitle">{dostavka.title}</h2>
 
-      <div className="Split05">
-        <div className="Left05">
-          <p className="Text05">{dostavka.listTitle}</p>
-          <ul className="List05">
-            {dostavka.items.map((item) => (
-              <li key={item.term}>
-                <b>{item.term}</b> {item.desc}
-              </li>
+        <div className="DeliverySplit">
+          <div className="DeliveryCopy">
+            {dostavka.sections.map((section) => (
+              <section className="DeliveryGroup" key={section.title}>
+                <h3>{section.title}</h3>
+                <ul>
+                  {section.items.map((item) => (
+                    <li key={'term' in item ? item.term : item.text}>
+                      {'term' in item && <strong>{item.term} </strong>}
+                      {item.text}
+                    </li>
+                  ))}
+                </ul>
+              </section>
             ))}
-          </ul>
+            <div className="DeliveryRepeatedCopy">
+              <p>Способы доставки:</p>
+              {dostavka.sections[0].items.map((item) => (
+                <p key={'term' in item ? item.term : item.text}>
+                  {'term' in item && `${item.term} `}
+                  {item.text}
+                </p>
+              ))}
+              <p>Сроки доставки:</p>
+              {dostavka.sections[1].items.map((item) => (
+                <p key={item.text}>{item.text}</p>
+              ))}
+            </div>
+          </div>
 
-          <p className="Text05">{dostavka.listTitle2}</p>
-          <ul className="List05">
-            {dostavka.items2.map((item) => (
-              <li key={item.desc}>{item.desc}</li>
-            ))}
-          </ul>
+          <div className="DeliveryVisual">
+            <img src={dostavka.image} alt="Орехи для доставки покупателям" />
+          </div>
         </div>
 
-        <div className="Right05">
-          <img className="Photo05" src={dostavka.image} alt="" />
+        <div className="DeliveryGallery">
+          {photos.map((src) => (
+            <img key={src} src={src} alt="Ассортимент орехов и сухофруктов" />
+          ))}
         </div>
       </div>
-
-      <div className="Row05">
-        {photos.map((src) => (
-          <img key={src} className="Photo05Small" src={src} alt="" />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 }

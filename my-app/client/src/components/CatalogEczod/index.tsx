@@ -87,7 +87,7 @@ const visibleProducts = products.slice(0, limit);
                     </select>
                 </label>
                 </div>
-            {eczod.map((eczod) => (
+            {visibleProducts.map((eczod) => (
                 <article className='card_eczod' key={eczod.id}>
                     <img className='eczod_img' src={eczod.img} alt={eczod.title}/>
                     <div className='eczod_content'>

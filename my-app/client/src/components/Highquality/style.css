@@ -1,6 +1,6 @@
 .Body02 {
 	background-color: #c4b4af;
-	padding: 53px 24px 4px;
+	padding: 53px 24px 24px;
 	box-sizing: border-box;
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
@@ -8,7 +8,7 @@
 .Split02 {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 4px;
+	gap: 20px;
 	max-width: 900px;
 	margin: 0 auto;
 }

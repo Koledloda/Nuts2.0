@@ -5,7 +5,7 @@ import Vybor from '../components/Vybor';
 
 export default function About() {
     return (
-        <div>
+        <div className="about-page">
             <Header />
             <AboutSection />
             <Vybor />

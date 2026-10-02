@@ -1,4 +1,3 @@
-import * as React from 'react';
 import './style.css';
 
 const choice = {
@@ -11,13 +10,13 @@ const choice = {
 
 export default function Choice() {
   return (
-    <div className="Body03">
-      <div className="Banner03">
-        <img className="Image03" src={choice.image} alt="" />
-        <div className="Content03">
-          <h2 className="Title03">{choice.title}</h2>
-          <p className="Text03">{choice.text}</p>
-          <a className="Button03" href="#catalog">
+    <div className="ChoiceSection">
+      <div className="ChoiceBanner">
+        <img className="ChoiceImage" src={choice.image} alt="" />
+        <div className="ChoiceContent">
+          <h2 className="ChoiceTitle">{choice.title}</h2>
+          <p className="ChoiceText">{choice.text}</p>
+          <a className="ChoiceButton" href="#catalog">
             {choice.button}
           </a>
         </div>

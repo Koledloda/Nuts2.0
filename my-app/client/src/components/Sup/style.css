@@ -1,11 +1,17 @@
+.contact-section {
+    background-color: #A59691;
+}
+
 .sup {
     display: grid;
-    grid-template-columns: 700px 500px;
+    grid-template-columns: minmax(0, 700px) minmax(0, 500px);
     gap: 30px;
     width: 100%;
     max-width: 1230px;
     margin: 0 auto;
-    background-color: #A59691;
+    padding: 0 20px;
+
+    box-sizing: border-box;
 }
 
 .photo {

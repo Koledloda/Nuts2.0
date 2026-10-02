@@ -8,6 +8,7 @@ import CatalogPopularPage from './pages/CatalogPopular';
 import CatalogPremium from './pages/CatalogPremium';
 import CatalogPoleznie from './pages/CatalogPoleznie';
 import CatalogEczod from './pages/CatalogEczod';
+import Garantii from './pages/Garantii';
 export const router = createBrowserRouter([
   {
     path: '/catalog/eczod',
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
   {
     path: '/dostavkaOplata',
     element: <DostavkaOplata />,
+  },
+  {
+    path: '/garantii',
+    element: <Garantii />,
   },
   {
     path: '/kontakty',

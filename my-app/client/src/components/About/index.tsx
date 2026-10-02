@@ -23,15 +23,15 @@ const about = {
 ];
 export default function About() {
   return (
-    <div className="Body03">
-      <h2 className="Title03">{about.title}</h2>
+    <div className="AboutSection">
+      <h2 className="AboutTitle">{about.title}</h2>
 
-      <div className="Split03">
-        <div className="Left03">
-          <p className="Text03">{about.text}</p>
-          <p className="Text03">{about.listTitle}</p>
+      <div className="AboutSplit">
+        <div className="AboutLeft">
+          <p className="AboutText">{about.text}</p>
+          <p className="AboutText">{about.listTitle}</p>
 
-          <ul className="List03">
+          <ul className="AboutList">
             {about.items.map((item) => (
               <li key={item.term}>
                 <b>{item.term}</b> {item.desc}
@@ -39,19 +39,19 @@ export default function About() {
             ))}
           </ul>
 
-          <button type="button" className="Button03">
+          <button type="button" className="AboutButton">
             {about.button}
           </button>
         </div>
 
-        <div className="Right03">
-          <img className="Photo03" src={about.image} alt="" />
+        <div className="AboutRight">
+          <img className="AboutPhoto" src={about.image} alt="" />
         </div>
       </div>
 
-      <div className="Row03">
+      <div className="AboutPhotoRow">
         {photos.map((src) => (
-          <img key={src} className="Photo03Small" src={src} alt="" />
+          <img key={src} className="AboutSmallPhoto" src={src} alt="" />
         ))}
       </div>
     </div>

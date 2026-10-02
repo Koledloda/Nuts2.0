@@ -43,7 +43,7 @@ export default function Vybor() {
   return (
     <div className="Body01">
       <h2 className="Headline01">
-        Почему выбирают <span className="Highlight01">наш магазин</span>
+        Почему выбирают{' '}<span className="Highlight01">наш магазин</span>
       </h2>
 
       <div className="Panel01">
