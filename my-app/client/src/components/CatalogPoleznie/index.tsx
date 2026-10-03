@@ -55,14 +55,14 @@ if (sortOrder === 'cheap') {
 const visibleProducts = products.slice(0, limit);
 
     return (
-        <main className='popular'>
+        <main className='poleznie'>
             <div>
-                <h1 className='popular_title'>Полезные</h1>
+                <h1 className='poleznie_title'>Полезные</h1>
                 <p>
                 <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link> / <text> Полезные</text>
                 </p>
                 </div>
-                <div className="popular_toolbar">
+                <div className="poleznie_toolbar">
                 <label>
                     Показывать:
                     <select
@@ -87,13 +87,13 @@ const visibleProducts = products.slice(0, limit);
                 </label>
                 </div>
             {visibleProducts.map((poleznie) => (
-                <article className='card_popular' key={poleznie.id}>
-                    <img className='popular_img' src={poleznie.img} alt={poleznie.title}/>
-                    <div className='popular_content'>
+                <article className='card_poleznie' key={poleznie.id}>
+                    <img className='poleznie_img' src={poleznie.img} alt={poleznie.title}/>
+                    <div className='poleznie_content'>
                         <h2>{poleznie.title}</h2>
                         <p>{poleznie.description}</p>
                         <p>{poleznie.price}</p>
-                        <Link to={poleznie.to}>Перейти</Link>    
+                        <Link to={poleznie.to} className='button_poleznie'>Перейти</Link>    
                     </div>
                 </article>
             ))}

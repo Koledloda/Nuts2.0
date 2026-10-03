@@ -93,7 +93,7 @@ const visibleProducts = products.slice(0, limit);
                         <h2>{premium.title}</h2>
                         <p>{premium.description}</p>
                         <p>{premium.price}</p>
-                        <Link to={premium.to}>Перейти</Link>    
+                        <Link to={premium.to} className='button_premium'>Перейти</Link>
                     </div>
                 </article>
             ))}
