@@ -33,16 +33,16 @@ const katalog = [
 
 export default function Katalog() {
     return (
-        <main >
-            <div >
-                <h1>Каталог товаров</h1>
+        <main className="section_inner width1170">
+            <div className="catalogTitleBlock">
+                <h1 className="catalogTitle">Каталог товаров</h1>
                 <p>
                     <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link>
                 </p>
             </div>
-            <div>
+            <div className="category">
                 {katalog.map((cat) => (
-                    <article key={cat.id}>
+                    <article className="category-card" key={cat.id}>
                         <img src={cat.img} alt={cat.title} />
                         <div>
                             <h2>{cat.title}</h2>

@@ -11,6 +11,8 @@
 	font-weight: 700;
 	margin: 0 auto 28px;
 	max-width: 900px;
+	box-sizing: border-box;
+	padding: 0 18px;
 }
 
 .Highlight01 {

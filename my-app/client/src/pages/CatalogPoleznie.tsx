@@ -1,13 +1,13 @@
-import Footer from '../components/Footer';
+import CatalogPoleznie from '../components/CatalogPoleznie';
 import Header from '../components/Header';
-import CatalogPoleznieContent from '../components/CatalogPoleznie';
+import Footer from '../components/Footer';
 
-export default function CatalogPoleznie() {
-    return(
+export default function CatalogPopularSection () {
+    return (
         <div>
-            <Header/>
-            <CatalogPoleznieContent/>
-            <Footer/>
+            <Header />
+            <CatalogPoleznie />
+            <Footer />
         </div>
     )
 }

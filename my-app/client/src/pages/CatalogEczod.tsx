@@ -1,13 +1,13 @@
-import Footer from '../components/Footer';
+import CatalogEczod from '../components/CatalogEczod';
 import Header from '../components/Header';
-import CatalogEczodContent from '../components/CatalogEczod';
+import Footer from '../components/Footer';
 
-export default function CatalogEczod() {
-    return(
+export default function CatalogPopularSection () {
+    return (
         <div>
-            <Header/>
-            <CatalogEczodContent/>
-            <Footer/>
+            <Header />
+            <CatalogEczod />
+            <Footer />
         </div>
     )
 }

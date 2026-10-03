@@ -86,7 +86,7 @@ const visibleProducts = products.slice(0, limit);
                     </select>
                 </label>
                 </div>
-            {poleznie.map((poleznie) => (
+            {visibleProducts.map((poleznie) => (
                 <article className='card_popular' key={poleznie.id}>
                     <img className='popular_img' src={poleznie.img} alt={poleznie.title}/>
                     <div className='popular_content'>

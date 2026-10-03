@@ -86,7 +86,7 @@ const visibleProducts = products.slice(0, limit);
                     </select>
                 </label>
                 </div>
-            {premium.map((premium) => (
+            {visibleProducts.map((premium) => (
                 <article className='card_premium' key={premium.id}>
                     <img className='premium_img' src={premium.img} alt={premium.title}/>
                     <div className='premium_content'>

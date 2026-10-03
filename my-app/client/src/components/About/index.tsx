@@ -13,6 +13,7 @@ const about = {
     { term: 'Цены.', desc: 'Прямые импортные контракты с производителями — работаем без посредников и лишних наценок.' },
   ],
   button: 'Перейти в каталог',
+  to: '/catalog',
   image: 'https://415022.lp.tobiz.net/img/788x1050/c716dc67734b6e4dfbafc044121ffd2e.jpg',
 }
 
@@ -39,9 +40,9 @@ export default function About() {
             ))}
           </ul>
 
-          <button type="button" className="AboutButton">
+          <a href={about.to} className="AboutButton">
             {about.button}
-          </button>
+          </a>
         </div>
 
         <div className="AboutRight">

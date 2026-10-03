@@ -29,7 +29,7 @@ const header = [
    {
     id: 5,
     item: 'Гарантии',
-    link: '',
+    link: '/garantii',
    },
 
    {

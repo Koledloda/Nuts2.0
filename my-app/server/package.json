@@ -7,11 +7,12 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "tsx index.ts",
-    "dev": "tsx watch index.ts",
-    "db:generate": "prisma generate",
-    "db:push": "prisma db push",
-    "db:seed": "prisma db seed"
+    "start": "node ../node_modules/tsx/dist/cli.mjs index.ts",
+    "dev": "node ../node_modules/tsx/dist/cli.mjs watch index.ts",
+    "db:generate": "node ../node_modules/prisma/build/index.js generate --config prisma.config.ts",
+    "db:push": "node ../node_modules/prisma/build/index.js db push --config prisma.config.ts",
+    "db:seed": "node ../node_modules/prisma/build/index.js db seed --config prisma.config.ts",
+    "db:studio": "node ../node_modules/prisma/build/index.js studio --config prisma.config.ts"
   },
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.10.0",
@@ -21,6 +22,8 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.13.6",
     "prisma": "^7.10.0",
     "tsx": "^4.23.15"
   }

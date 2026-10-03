@@ -11,7 +11,7 @@ export default function (props: {
 
   return (
     <div className="Body">
-      <div>
+      <div className="StartContent">
         <h1 className="Headline">
           {title}
           <br />

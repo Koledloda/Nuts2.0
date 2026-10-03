@@ -74,6 +74,7 @@
 }
 
 .AboutButton {
+  display: inline-block;
   width: auto;
   padding: 20px 58px;
   border: none;
@@ -83,6 +84,7 @@
   color: #000;
   white-space: nowrap;
   cursor: pointer;
+  text-decoration: none; 
 }
 
 /* Ряд из трёх фото */

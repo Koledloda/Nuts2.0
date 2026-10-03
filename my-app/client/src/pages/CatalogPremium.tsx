@@ -1,13 +1,13 @@
-import Footer from '../components/Footer';
+import CatalogPremium from '../components/CatalogPremium';
 import Header from '../components/Header';
-import CatalogPremiumContent from '../components/CatalogPremium';
+import Footer from '../components/Footer';
 
-export default function CatalogPremium() {
-    return(
+export default function CatalogPopularSection () {
+    return (
         <div>
-            <Header/>
-            <CatalogPremiumContent/>
-            <Footer/>
+            <Header />
+            <CatalogPremium />
+            <Footer />
         </div>
     )
 }

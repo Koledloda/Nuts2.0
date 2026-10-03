@@ -85,7 +85,7 @@ const visibleProducts = products.slice(0, limit);
                         <h2>{popular.title}</h2>
                         <p>{popular.description}</p>
                         <p>{popular.price}</p>
-                        <Link to={popular.to}>Перейти</Link>    
+                        <Link to={popular.to} className='btn_popular'>Перейти</Link>    
                     </div>
                 </article>
             ))}
