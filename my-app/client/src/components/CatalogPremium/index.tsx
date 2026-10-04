@@ -8,8 +8,7 @@ const premium = [
         img: 'https://415022.lp.tobiz.net/img/400x400/d2a2e1f66879ae32334f4b1797402db2.jpg',
         title: 'Орехи макадамия',
         description: 'Изысканное сочетание хрустящих орехов и гладкого шоколада...',
-        price: '430.00 руб.',
-        to:'',
+        price: '430.00 руб.', 
     },
     {
         id: 2,
@@ -17,7 +16,6 @@ const premium = [
         title: 'Орехи пекан',
         description: 'Маслянистые ядра с нежным вкусом, напоминающим грецкий...',
         price: '399.00 руб.',
-        to:'',
     },
     {
         id: 3,
@@ -25,7 +23,6 @@ const premium = [
         title: 'Фисташки солёные',
         description: 'Пикантные раскрывшиеся орешки с ярким вкусом. Содержат полезные жиры...',
         price: '249.00 руб.',
-        to:'',
     },
     {
         id: 4,
@@ -33,7 +30,6 @@ const premium = [
         title: 'Кешью обжаренные',
         description: 'Нежные маслянистые орехи с деликатным сладковатым вкусом...',
         price: '190.00 руб.',
-        to:'',
     },
 ]
 
@@ -93,10 +89,15 @@ const visibleProducts = products.slice(0, limit);
                         <h2>{premium.title}</h2>
                         <p>{premium.description}</p>
                         <p>{premium.price}</p>
-                        <Link to={premium.to} className='button_premium'>Перейти</Link>
+                        <Link
+                            to={`/products/${premium.id}`}
+                            className="button_premium"
+                        >
+                            Перейти
+                        </Link>                    
                     </div>
                 </article>
-            ))}
+            ))} 
         </main>
     )
 }

@@ -9,7 +9,7 @@ import CatalogPremium from './pages/CatalogPremium';
 import CatalogPoleznie from './pages/CatalogPoleznie';
 import CatalogEczod from './pages/CatalogEczod';
 import Garantii from './pages/Garantii';
-
+import Products from './pages/Products';
 export const router = createBrowserRouter([
   {
     path: '/catalog/eczod',
@@ -50,5 +50,9 @@ export const router = createBrowserRouter([
   {
     path: '/kontakty',
     element: <Kontakty />,
+  },
+  {
+  path: '/products/:id',
+  element: <Products/>,
   },
 ]);

@@ -51,7 +51,7 @@ const visibleProducts = products.slice(0, limit);
             <div>
                 <h1 className='popular_title'>Популярные</h1>
                 <p>
-                <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link> / <text> Популярные</text>
+                <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link> / <span> Популярные</span>
                 </p>
                 </div>
                 <div className="popular_toolbar">
