@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import './style.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useApi } from '../../hooks/useApi';
 
-const popular = [
+/* const popular = [
     {
         id: 1,
         img: 'https://415022.lp.tobiz.net/img/300x300/0e3cab38d860aa4b36990410c484115b.jpg',
@@ -27,68 +28,104 @@ const popular = [
         price: '190.00 руб.',
         to:'',
     },
-]
+] */
 
-export default function Popular() {
-const [limit, setLimit] = useState(24);
-const [sortOrder, setSortOrder] = useState('default');
-const getPrice = (price: string) =>
-
-  Number(price.replace(/[^\d,.-]/g, '').replace(',', '.'));
-
-const products = [...popular];
-
-if (sortOrder === 'cheap') {
-  products.sort((a, b) => getPrice(a.price) - getPrice(b.price));
-} else if (sortOrder === 'expensive') {
-  products.sort((a, b) => getPrice(b.price) - getPrice(a.price));
+interface Product {
+    id: number;
+    img: string;
+    title: string;
+    description: string;
+    price: string;
+    to: string;
 }
 
-const visibleProducts = products.slice(0, limit);
+export default function Popular() {
+    const [limit, setLimit] = useState(24);
+    const [sortOrder, setSortOrder] = useState('default');
+    const [loading, setLoading] = useState(true);
+    // 1. Оставляем имя стейта как 'products'
+    const [products, setProducts] = useState<Product[]>([]); 
+    const { request } = useApi();
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const data = await request('/api/products/popular');
+                // Исправлено: вызываем правильную функцию обновления стейта
+                setProducts(data); 
+            } catch (error) {
+                console.error('Ошибка при загрузке товаров:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProducts();
+    }, []);
+    
+    // Функция парсинга цены (строку в число) для правильной сортировки
+    const getPrice = (price: string) => 
+        Number(price.replace(/[^\d,.-]/g, '').replace(',', '.'));
+
+    // 2. Исправлено: создаем массив для сортировки с другим именем (sortedProducts), чтобы не было конфликта
+    const sortedProducts = [...products];
+
+    if (sortOrder === 'cheap') {
+        sortedProducts.sort((a, b) => getPrice(a.price) - getPrice(b.price));
+    } else if (sortOrder === 'expensive') {
+        sortedProducts.sort((a, b) => getPrice(b.price) - getPrice(a.price));
+    }
+
+    const visibleProducts = sortedProducts.slice(0, limit);
+
+    if (loading) {
+        return <div className="loading">Загрузка товаров из базы данных...</div>;
+    }
 
     return (
         <main className='popular'>
             <div>
                 <h1 className='popular_title'>Популярные</h1>
                 <p>
-                <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link> / <span> Популярные</span>
+                    <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link> / <span> Популярные</span>
                 </p>
-                </div>
-                <div className="popular_toolbar">
+            </div>
+            
+            <div className="popular_toolbar">
                 <label>
                     Показывать:
                     <select
-                    value={limit}
-                    onChange={(event) => setLimit(Number(event.target.value))}
+                        value={limit}
+                        onChange={(event) => setLimit(Number(event.target.value))}
                     >
-                    {[12, 24, 48, 96].map((count) => (
-                        <option key={count} value={count}>{count}</option>
-                    ))}
+                        {[12, 24, 48, 96].map((count) => (
+                            <option key={count} value={count}>{count}</option>
+                        ))}
                     </select>
                 </label>
                 <label>
                     Сортировать:
                     <select
-                    value={sortOrder}
-                    onChange={(event) => setSortOrder(event.target.value)}
+                        value={sortOrder}
+                        onChange={(event) => setSortOrder(event.target.value)}
                     >
-                    <option value="default">По умолчанию</option>
-                    <option value="cheap">Сначала дешёвые</option>
-                    <option value="expensive">Сначала дорогие</option>
+                        <option value="default">По умолчанию</option>
+                        <option value="cheap">Сначала дешёвые</option>
+                        <option value="expensive">Сначала дорогие</option>
                     </select>
                 </label>
-                </div>
-            {visibleProducts.map((popular) => (
-                <article className='card_popular' key={popular.id}>
-                    <img className='popular_img' src={popular.img} alt={popular.title}/>
+            </div>
+
+            {visibleProducts.map((product) => (
+                <article className='card_popular' key={product.id}>
+                    <img className='popular_img' src={product.img} alt={product.title}/>
                     <div className='popular_content'>
-                        <h2>{popular.title}</h2>
-                        <p>{popular.description}</p>
-                        <p>{popular.price}</p>
-                        <Link to={popular.to} className='btn_popular'>Перейти</Link>    
+                        <h2>{product.title}</h2>
+                        <p>{product.description}</p>
+                        <p>{product.price}</p>
+                        <Link to={product.to || `/product/${product.id}`} className='btn_popular'>Перейти</Link>    
                     </div>
                 </article>
             ))}
         </main>
-    )
+    );
 }
