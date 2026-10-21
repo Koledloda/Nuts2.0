@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
         path: 'popular',
         element: <CatalogPopular />,
       },
-    ]
+    ],
   },
   {
     path: '/about',
