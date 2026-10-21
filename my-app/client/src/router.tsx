@@ -9,24 +9,8 @@ import CatalogPremium from './pages/CatalogPremium';
 import CatalogPoleznie from './pages/CatalogPoleznie';
 import CatalogEczod from './pages/CatalogEczod';
 import Garantii from './pages/Garantii';
-import Products from './pages/Products';
+
 export const router = createBrowserRouter([
-  {
-    path: '/catalog/eczod',
-    element: <CatalogEczod/>,
-  },
-  {
-    path: '/catalog/poleznie',
-    element: <CatalogPoleznie/>,
-  },
-  {
-    path: '/catalog/premium',
-    element: <CatalogPremium/>,
-  },
-  {
-    path: '/catalog/popular',
-    element: <CatalogPopular />,
-  },
   {
     path: '/',
     element: <Main />,
@@ -34,6 +18,24 @@ export const router = createBrowserRouter([
   {
     path: '/catalog',
     element: <Catalog />,
+    children: [
+      {
+        path: 'eczod',
+        element: <CatalogEczod/>,
+      },
+      {
+        path: 'poleznie',
+        element: <CatalogPoleznie/>,
+      },
+      {
+        path: 'premium',
+        element: <CatalogPremium/>,
+      },
+      {
+        path: 'popular',
+        element: <CatalogPopular />,
+      },
+    ]
   },
   {
     path: '/about',
@@ -50,9 +52,5 @@ export const router = createBrowserRouter([
   {
     path: '/kontakty',
     element: <Kontakty />,
-  },
-  {
-  path: '/products/:id',
-  element: <Products/>,
   },
 ]);
