@@ -94,7 +94,7 @@ const visibleProducts = products.slice(0, limit);
                         <h2>{eczod.title}</h2>
                         <p>{eczod.description}</p>
                         <p>{eczod.price}</p>
-                        <Link to={eczod.to}>Перейти</Link>    
+                        <Link to={eczod.to} className='button_eczod'>Перейти</Link>    
                     </div>
                 </article>
             ))}
