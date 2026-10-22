@@ -7,7 +7,7 @@ import { ordersRouter } from './src/routes/orders';
 
 const app = express();
 app.use(express.json());
-const port = Number(process.env.PORT) || 3000;
+const port = Number(process.env.PORT) || 5000;
 
 app.use(cors({
   origin: /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/,
