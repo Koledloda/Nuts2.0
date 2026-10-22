@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import './style.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getProducts, type Product } from '../../api/products';
 
-const premium = [
+/* const premium = [
     {
         id: 1,
         img: 'https://415022.lp.tobiz.net/img/400x400/d2a2e1f66879ae32334f4b1797402db2.jpg',
@@ -31,24 +32,51 @@ const premium = [
         description: 'Нежные маслянистые орехи с деликатным сладковатым вкусом...',
         price: '190.00 руб.',
     },
-]
+] */
 
-export default function Popular() {
-const [limit, setLimit] = useState(24);
-const [sortOrder, setSortOrder] = useState('default');
-const getPrice = (price: string) =>
+export default function premium() {
+    const [limit, setLimit] = useState(24);
+    const [sortOrder, setSortOrder] = useState('default');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [products, setProducts] = useState<Product[]>([]);
 
-  Number(price.replace(/[^\d,.-]/g, '').replace(',', '.'));
 
-const products = [...premium];
+    useEffect(() => {
+        const controller = new AbortController();
 
-if (sortOrder === 'cheap') {
-  products.sort((a, b) => getPrice(a.price) - getPrice(b.price));
-} else if (sortOrder === 'expensive') {
-  products.sort((a, b) => getPrice(b.price) - getPrice(a.price));
-}
+        getProducts('premium', controller.signal)
+            .then((result) => {
+                setProducts(result.data);
+                setError(null);
+            })
+            .catch((err: Error) => {
+                if (err.name === 'AboutError') return;
+                console.error('Ошибка при загрузке товаров:', err);
+                setError(err.message);
+            })
+            .finally(() => setLoading(false));
 
-const visibleProducts = products.slice(0, limit);
+        return () => controller.abort();
+    }, []);
+
+    const sortedProducts = [...products];
+
+    if (sortOrder === 'cheap') {
+        sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (sortOrder === 'expensive') {
+        sortedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    const visibleProducts = sortedProducts.slice(0, limit);
+
+    if (loading) {
+        return <div className="loading">Загрузка товаров из баззы данных....</div>;
+    }
+
+    if (error) {
+        return <div className="loading">Ошибка загрузки: {error}</div>;
+    }
 
     return (
         <main className='premium'>
@@ -84,11 +112,11 @@ const visibleProducts = products.slice(0, limit);
                 </div>
             {visibleProducts.map((premium) => (
                 <article className='card_premium' key={premium.id}>
-                    <img className='premium_img' src={premium.img} alt={premium.title}/>
+                    <img className='premium_img' src={premium.images[0]?.url} alt={premium.title}/>
                     <div className='premium_content'>
                         <h2>{premium.title}</h2>
                         <p>{premium.description}</p>
-                        <p>{premium.price}</p>
+                        <p>{premium.price.toLocaleString('ru-RU')} руб.</p>
                         <Link
                             to={`/products/${premium.id}`}
                             className="button_premium"

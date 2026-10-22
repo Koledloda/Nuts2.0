@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import './style.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getProducts, type Product } from '../../api/products';
 
-const eczod = [
+/* const eczod = [
     {
         id: 1,
         img: 'https://415022.lp.tobiz.net/img/400x400/cd61617b45acfe7e66d13b9646d8693e.jpg',
@@ -35,25 +36,52 @@ const eczod = [
         price: '790.00 руб.',
         to:'',
     },
-]
+] */
 
 
 export default function Eczod() {
-const [limit, setLimit] = useState(24);
-const [sortOrder, setSortOrder] = useState('default');
-const getPrice = (price: string) =>
+    const [limit, setLimit] = useState(24);
+    const [sortOrder, setSortOrder] = useState('default');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [eczod, setProducts] = useState<Product[]>([]);
 
-  Number(price.replace(/[^\d,.-]/g, '').replace(',', '.'));
+    useEffect(() => {
+        const controller = new AbortController();
 
-const products = [...eczod];
+        getProducts('exotic', controller.signal)
+            .then((result) => {
+                setProducts(result.data);
+                setError(null);
+            })
+            .catch((err: Error) => {
+                if (err.name === 'AbortError') return;
+                console.error('Ошибка при загрузке товаров:', err);
+                setError(err.message);
+            })
+            .finally(() => setLoading(false));
 
-if (sortOrder === 'cheap') {
-  products.sort((a, b) => getPrice(a.price) - getPrice(b.price));
-} else if (sortOrder === 'expensive') {
-  products.sort((a, b) => getPrice(b.price) - getPrice(a.price));
-}
+        return () => controller.abort();
+    }, []);
+    
+    const sortedProducts = [...eczod];
 
-const visibleProducts = products.slice(0, limit);
+    if (sortOrder === 'cheap') {
+        sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (sortOrder === 'expensive') {
+        sortedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    const visibleProducts = sortedProducts.slice(0, limit);
+
+    if (loading) {
+        return <div className="loading">Загрузка товаров из базы данных...</div>;
+    }
+
+    if (error) {
+        return <div className="loading">Ошибка загрузки: {error}</div>;
+    }
+
 
     return (
         <main className='eczod'>
@@ -78,8 +106,8 @@ const visibleProducts = products.slice(0, limit);
                 <label>
                     Сортировать:
                     <select
-                    value={sortOrder}
-                    onChange={(event) => setSortOrder(event.target.value)}
+                        value={sortOrder}
+                        onChange={(event) => setSortOrder(event.target.value)}
                     >
                     <option value="default">По умолчанию</option>
                     <option value="cheap">Сначала дешёвые</option>
@@ -87,14 +115,14 @@ const visibleProducts = products.slice(0, limit);
                     </select>
                 </label>
                 </div>
-            {visibleProducts.map((eczod) => (
-                <article className='card_eczod' key={eczod.id}>
-                    <img className='eczod_img' src={eczod.img} alt={eczod.title}/>
+            {visibleProducts.map((product) => (
+                <article className='card_eczod' key={product.id}>
+                    <img className='eczod_img' src={product.images[0]?.url} alt={product.title}/>
                     <div className='eczod_content'>
-                        <h2>{eczod.title}</h2>
-                        <p>{eczod.description}</p>
-                        <p>{eczod.price}</p>
-                        <Link to={eczod.to} className='button_eczod'>Перейти</Link>    
+                        <h2>{product.title}</h2>
+                        <p>{product.description}</p>
+                        <p>{product.price.toLocaleString('ru-RU')} руб.</p>
+                        <Link to={`/product/${product.slug}`} className='button_eczod'>Перейти</Link>    
                     </div>
                 </article>
             ))}

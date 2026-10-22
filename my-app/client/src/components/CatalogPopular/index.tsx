@@ -112,7 +112,7 @@ export default function Popular() {
                     <img
                         className='popular_img'
                         src={product.images[0]?.url}
-                        alt={product.images[0]?.alt || product.title}
+                        alt={product.title}
                     />
                     <div className='popular_content'>
                         <h2>{product.title}</h2>
