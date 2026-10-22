@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './style.css'
 import { useState, useEffect } from 'react';
-import { useApi } from '../../hooks/useApi';
+import { getProducts, type Product } from '../../api/products';
 
 /* const popular = [
     {
@@ -30,55 +30,47 @@ import { useApi } from '../../hooks/useApi';
     },
 ] */
 
-interface Product {
-    id: number;
-    img: string;
-    title: string;
-    description: string;
-    price: string;
-    to: string;
-}
-
 export default function Popular() {
     const [limit, setLimit] = useState(24);
     const [sortOrder, setSortOrder] = useState('default');
     const [loading, setLoading] = useState(true);
-    // 1. Оставляем имя стейта как 'products'
-    const [products, setProducts] = useState<Product[]>([]); 
-    const { request } = useApi();
+    const [error, setError] = useState<string | null>(null);
+    const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const data = await request('/api/products/popular');
-                // Исправлено: вызываем правильную функцию обновления стейта
-                setProducts(data); 
-            } catch (error) {
-                console.error('Ошибка при загрузке товаров:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchProducts();
-    }, []);
-    
-    // Функция парсинга цены (строку в число) для правильной сортировки
-    const getPrice = (price: string) => 
-        Number(price.replace(/[^\d,.-]/g, '').replace(',', '.'));
+        const controller = new AbortController();
 
-    // 2. Исправлено: создаем массив для сортировки с другим именем (sortedProducts), чтобы не было конфликта
+        getProducts('popular', controller.signal)
+            .then((result) => {
+                setProducts(result.data);
+                setError(null);
+            })
+            .catch((err: Error) => {
+                if (err.name === 'AbortError') return;
+                console.error('Ошибка при загрузке товаров:', err);
+                setError(err.message);
+            })
+            .finally(() => setLoading(false));
+
+        return () => controller.abort();
+    }, []);
+
     const sortedProducts = [...products];
 
     if (sortOrder === 'cheap') {
-        sortedProducts.sort((a, b) => getPrice(a.price) - getPrice(b.price));
+        sortedProducts.sort((a, b) => a.price - b.price);
     } else if (sortOrder === 'expensive') {
-        sortedProducts.sort((a, b) => getPrice(b.price) - getPrice(a.price));
+        sortedProducts.sort((a, b) => b.price - a.price);
     }
 
     const visibleProducts = sortedProducts.slice(0, limit);
 
     if (loading) {
         return <div className="loading">Загрузка товаров из базы данных...</div>;
+    }
+
+    if (error) {
+        return <div className="loading">Ошибка загрузки: {error}</div>;
     }
 
     return (
@@ -117,12 +109,16 @@ export default function Popular() {
 
             {visibleProducts.map((product) => (
                 <article className='card_popular' key={product.id}>
-                    <img className='popular_img' src={product.img} alt={product.title}/>
+                    <img
+                        className='popular_img'
+                        src={product.images[0]?.url}
+                        alt={product.images[0]?.alt || product.title}
+                    />
                     <div className='popular_content'>
                         <h2>{product.title}</h2>
                         <p>{product.description}</p>
-                        <p>{product.price}</p>
-                        <Link to={product.to || `/product/${product.id}`} className='btn_popular'>Перейти</Link>    
+                        <p>{product.price.toLocaleString('ru-RU')} руб.</p>
+                        <Link to={`/product/${product.slug}`} className='btn_popular'>Перейти</Link>
                     </div>
                 </article>
             ))}

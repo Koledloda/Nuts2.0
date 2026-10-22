@@ -119,7 +119,7 @@ const app = express();
 const port = Number(process.env.PORT) || 3000;
 
 app.use(cors({
-  origin: /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?\$/,
+  origin: /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/,
   methods: ['GET', 'OPTIONS'],
   allowedHeaders: ['Content-Type']
 }));

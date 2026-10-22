@@ -9,6 +9,7 @@ import CatalogPremium from './pages/CatalogPremium';
 import CatalogPoleznie from './pages/CatalogPoleznie';
 import CatalogEczod from './pages/CatalogEczod';
 import Garantii from './pages/Garantii';
+import Products from './pages/Products';
 
 export const router = createBrowserRouter([
   {
@@ -16,26 +17,28 @@ export const router = createBrowserRouter([
     element: <Main />,
   },
   {
+    path: '/product/:slug',
+    element: <Products />,
+  },
+  {
     path: '/catalog',
     element: <Catalog />,
-    children: [
-      {
-        path: 'eczod',
-        element: <CatalogEczod/>,
-      },
-      {
-        path: 'poleznie',
-        element: <CatalogPoleznie/>,
-      },
-      {
-        path: 'premium',
-        element: <CatalogPremium/>,
-      },
-      {
-        path: 'popular',
-        element: <CatalogPopular />,
-      },
-    ],
+  },
+  {
+    path: '/catalog/eczod',
+    element: <CatalogEczod />,
+  },
+  {
+    path: '/catalog/poleznie',
+    element: <CatalogPoleznie />,
+  },
+  {
+    path: '/catalog/premium',
+    element: <CatalogPremium />,
+  },
+  {
+    path: '/catalog/popular',
+    element: <CatalogPopular />,
   },
   {
     path: '/about',
