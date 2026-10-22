@@ -70,3 +70,9 @@ model OrderItem {
   @@index([orderId])
   @@index([productId])
 }
+
+enum OrderStatus {
+  NEW
+  COMPLETED
+  CANCELLED
+}
