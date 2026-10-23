@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import './style.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getProducts, type Product } from '../../api/products';
 
-const poleznie = [
+/* const poleznie = [
     {
         id: 1,
         img: 'https://415022.lp.tobiz.net/img/400x400/e5093ee29d011d36ef795fb40e5067ea.jpg',
@@ -35,65 +36,96 @@ const poleznie = [
         price: '560.00 руб.',
         to:'',
     },
-]
+] */
 
 export default function Poleznie() {
-const [limit, setLimit] = useState(24);
-const [sortOrder, setSortOrder] = useState('default');
-const getPrice = (price: string) =>
+    const [limit, setLimit] = useState(24);
+    const [sortOrder, setSortOrder] = useState('default');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [products, setProducts] = useState<Product[]>([]);
 
-  Number(price.replace(/[^\d,.-]/g, '').replace(',', '.'));
+    useEffect(() => {
+        const controller = new AbortController();
 
-const products = [...poleznie];
+        getProducts('useful', controller.signal)
+            .then((result) => {
+                setProducts(result.data);
+                setError(null);
+            })
+            .catch((err: Error) => {
+                if (err.name === 'AbortError') return;
+                console.error('Ошибка при загрузке товаров:', err);
+                setError(err.message);
+            })
+            .finally(() => setLoading(false));
 
-if (sortOrder === 'cheap') {
-  products.sort((a, b) => getPrice(a.price) - getPrice(b.price));
-} else if (sortOrder === 'expensive') {
-  products.sort((a, b) => getPrice(b.price) - getPrice(a.price));
-}
+        return () => controller.abort();
+    }, []);
 
-const visibleProducts = products.slice(0, limit);
+    const sortedProducts = [...products];
+
+    if (sortOrder === 'cheap') {
+        sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (sortOrder === 'expensive') {
+        sortedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    const visibleProducts = sortedProducts.slice(0, limit);
+
+    if (loading) {
+        return <div className="loading">Загрузка товаров из базы данных...</div>;
+    }
+
+    if (error) {
+        return <div className="loading">Ошибка загрузки: {error}</div>;
+    }
 
     return (
         <main className='poleznie'>
             <div>
                 <h1 className='poleznie_title'>Полезные</h1>
                 <p>
-                <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link> / <text> Полезные</text>
+                    <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link> / <span>Полезные</span>
                 </p>
-                </div>
-                <div className="poleznie_toolbar">
+            </div>
+
+            <div className="poleznie_toolbar">
                 <label>
                     Показывать:
                     <select
-                    value={limit}
-                    onChange={(event) => setLimit(Number(event.target.value))}
+                        value={limit}
+                        onChange={(event) => setLimit(Number(event.target.value))}
                     >
-                    {[12, 24, 48, 96].map((count) => (
-                        <option key={count} value={count}>{count}</option>
-                    ))}
+                        {[12, 24, 48, 96].map((count) => (
+                            <option key={count} value={count}>{count}</option>
+                        ))}
                     </select>
                 </label>
+
                 <label>
                     Сортировать:
                     <select
-                    value={sortOrder}
-                    onChange={(event) => setSortOrder(event.target.value)}
+                        value={sortOrder}
+                        onChange={(event) => setSortOrder(event.target.value)}
                     >
-                    <option value="default">По умолчанию</option>
-                    <option value="cheap">Сначала дешёвые</option>
-                    <option value="expensive">Сначала дорогие</option>
+                        <option value="default">По умолчанию</option>
+                        <option value="cheap">Сначала дешёвые</option>
+                        <option value="expensive">Сначала дорогие</option>
                     </select>
                 </label>
-                </div>
-            {visibleProducts.map((poleznie) => (
-                <article className='card_poleznie' key={poleznie.id}>
-                    <img className='poleznie_img' src={poleznie.img} alt={poleznie.title}/>
+            </div>
+
+            {visibleProducts.length === 0 ? (
+                <div className="loading">Товаров не найдено.</div>
+            ) : visibleProducts.map((product) => (
+                <article className='card_poleznie' key={product.id}>
+                    <img className='poleznie_img' src={product.images[0]?.url} alt={product.title} />
                     <div className='poleznie_content'>
-                        <h2>{poleznie.title}</h2>
-                        <p>{poleznie.description}</p>
-                        <p>{poleznie.price}</p>
-                        <Link to={poleznie.to} className='button_poleznie'>Перейти</Link>    
+                        <h2>{product.title}</h2>
+                        <p>{product.description}</p>
+                        <p>{product.price.toLocaleString('ru-RU')} руб.</p>
+                        <Link to={`/product/${product.slug}`} className='button_poleznie'>Перейти</Link>
                     </div>
                 </article>
             ))}

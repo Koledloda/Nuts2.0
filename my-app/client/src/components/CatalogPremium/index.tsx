@@ -34,13 +34,12 @@ import { getProducts, type Product } from '../../api/products';
     },
 ] */
 
-export default function premium() {
+export default function Premium() {
     const [limit, setLimit] = useState(24);
     const [sortOrder, setSortOrder] = useState('default');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [products, setProducts] = useState<Product[]>([]);
-
 
     useEffect(() => {
         const controller = new AbortController();
@@ -51,7 +50,7 @@ export default function premium() {
                 setError(null);
             })
             .catch((err: Error) => {
-                if (err.name === 'AboutError') return;
+                if (err.name === 'AbortError') return;
                 console.error('Ошибка при загрузке товаров:', err);
                 setError(err.message);
             })
@@ -71,7 +70,7 @@ export default function premium() {
     const visibleProducts = sortedProducts.slice(0, limit);
 
     if (loading) {
-        return <div className="loading">Загрузка товаров из баззы данных....</div>;
+        return <div className="loading">Загрузка товаров из базы данных...</div>;
     }
 
     if (error) {
@@ -83,49 +82,49 @@ export default function premium() {
             <div>
                 <h1 className='premium_title'>Премиум</h1>
                 <p>
-                <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link> / <text> Премиум</text>
+                    <Link to="/">Главная</Link> / <Link to="/catalog">Каталог</Link> / <span>Премиум</span>
                 </p>
-                </div>
-                <div className="premium_toolbar">
+            </div>
+
+            <div className="premium_toolbar">
                 <label>
                     Показывать:
                     <select
-                    value={limit}
-                    onChange={(event) => setLimit(Number(event.target.value))}
+                        value={limit}
+                        onChange={(event) => setLimit(Number(event.target.value))}
                     >
-                    {[12, 24, 48, 96].map((count) => (
-                        <option key={count} value={count}>{count}</option>
-                    ))}
+                        {[12, 24, 48, 96].map((count) => (
+                            <option key={count} value={count}>{count}</option>
+                        ))}
                     </select>
                 </label>
+
                 <label>
                     Сортировать:
                     <select
-                    value={sortOrder}
-                    onChange={(event) => setSortOrder(event.target.value)}
+                        value={sortOrder}
+                        onChange={(event) => setSortOrder(event.target.value)}
                     >
-                    <option value="default">По умолчанию</option>
-                    <option value="cheap">Сначала дешёвые</option>
-                    <option value="expensive">Сначала дорогие</option>
+                        <option value="default">По умолчанию</option>
+                        <option value="cheap">Сначала дешёвые</option>
+                        <option value="expensive">Сначала дорогие</option>
                     </select>
                 </label>
-                </div>
-            {visibleProducts.map((premium) => (
+            </div>
+
+            {visibleProducts.length === 0 ? (
+                <div className="loading">Товаров не найдено.</div>
+            ) : visibleProducts.map((premium) => (
                 <article className='card_premium' key={premium.id}>
-                    <img className='premium_img' src={premium.images[0]?.url} alt={premium.title}/>
+                    <img className='premium_img' src={premium.images[0]?.url} alt={premium.title} />
                     <div className='premium_content'>
                         <h2>{premium.title}</h2>
                         <p>{premium.description}</p>
                         <p>{premium.price.toLocaleString('ru-RU')} руб.</p>
-                        <Link
-                            to={`/products/${premium.id}`}
-                            className="button_premium"
-                        >
-                            Перейти
-                        </Link>                    
+                        <Link to={`/product/${premium.slug}`} className='button_premium'>Перейти</Link>
                     </div>
                 </article>
-            ))} 
+            ))}
         </main>
     )
 }
