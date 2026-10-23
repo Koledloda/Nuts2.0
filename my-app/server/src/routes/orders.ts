@@ -2,6 +2,7 @@ import { Router, type Response } from 'express';
 import { prisma } from '../../lib/prisma';
 import {
   checkoutSchema,
+  updateOrderStatusSchema,
   type CheckoutInput,
 } from '../../shared/schema';
 import {
@@ -11,6 +12,7 @@ import {
 
 export const ordersRouter = Router();
 
+// Создание заказа
 ordersRouter.post(
   '/',
   validateMiddleware(checkoutSchema),
@@ -96,6 +98,56 @@ ordersRouter.post(
     } catch (error) {
       console.error('Ошибка создания заказа:', error);
       res.status(500).json({ error: 'Не удалось создать заказ' });
+    }
+  }
+);
+
+
+ordersRouter.get('/', async (_req, res) => {
+  try {
+    const orders = await prisma.order.findMany({
+      include: {
+        items: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    res.json({ data: orders });
+  } catch (error) {
+    console.error('Ошибка получения заказов:', error);
+    res.status(500).json({ error: 'Не удалось загрузить заказы' });
+  }
+});
+
+
+ordersRouter.patch(
+  '/:id/status',
+  validateMiddleware(updateOrderStatusSchema),
+  async (req, res) => {
+    const id = Number(req.params.id);
+
+    if (!Number.isInteger(id) || id <= 0 || id > 2147483647) {
+      res.status(400).json({ error: 'Некорректный ID заказа' });
+      return;
+    }
+
+    try {
+      const result = await prisma.order.updateMany({
+        where: { id },
+        data: { status: req.body.status },
+      });
+
+      if (result.count === 0) {
+        res.status(404).json({ error: 'Заказ не найден' });
+        return;
+      }
+
+      res.json({ data: { id, status: req.body.status } });
+    } catch (error) {
+      console.error('Ошибка изменения статуса:', error);
+      res.status(500).json({ error: 'Не удалось изменить статус' });
     }
   }
 );

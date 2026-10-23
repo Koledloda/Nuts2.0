@@ -38,4 +38,16 @@ export const checkoutSchema = z.object({
   marketingConsent: z.boolean().default(false),
 });
 
+export const leadSchema = z.object({
+  name: z.string().trim().min(1, 'Введите имя').max(100),
+  email: z.string().trim().email('Некорректный email'),
+  phone: phoneField,
+});
+
+export type LeadInput = z.infer<typeof leadSchema>;
+
+export const updateOrderStatusSchema = z.object({
+  status: z.enum(['NEW', 'PROCESSING', 'COMPLETED']),
+});
+
 export type CheckoutInput = z.infer<typeof checkoutSchema>;

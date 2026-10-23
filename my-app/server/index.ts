@@ -3,6 +3,7 @@ import express, { type Request, type Response } from 'express';
 import cors from 'cors';
 import { prisma } from './lib/prisma';
 import { ordersRouter } from './src/routes/orders';
+import { leadsRouter } from './src/routes/leads';
 
 
 const app = express();
@@ -11,12 +12,14 @@ const port = Number(process.env.PORT) || 5000;
 
 app.use(cors({
   origin: /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/,
-  methods: ['GET', 'POST', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
 
   allowedHeaders: ['Content-Type']
 }));
 
 app.use('/api/orders', ordersRouter);
+
+app.use('/api/leads', leadsRouter); 
 
 app.get('/', (_req: any, res: any) => {
   res.json({ name: 'Nuts shop API', status: 'ok' });
