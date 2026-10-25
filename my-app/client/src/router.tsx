@@ -61,8 +61,8 @@ export const router = createBrowserRouter([
     element: <Kontakty />,
   },
   {
-  path: '/products/:id',
-  element: <Products/>,
+    path: '/products/:id',
+    element: <Products/>,
   },
 ],
 },
