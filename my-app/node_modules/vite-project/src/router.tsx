@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { CartLayout } from './components/Cart';
 import Main from './pages/Main';
 import Kontakty from './pages/Kontakty';
 import Catalog from './pages/Catalog';
@@ -12,6 +13,9 @@ import Garantii from './pages/Garantii';
 import Products from './pages/Products';
 
 export const router = createBrowserRouter([
+  {
+    element: <CartLayout/>,
+    children:[
   {
     path: '/',
     element: <Main />,
@@ -60,4 +64,6 @@ export const router = createBrowserRouter([
   path: '/products/:id',
   element: <Products/>,
   },
+],
+},
 ]);
