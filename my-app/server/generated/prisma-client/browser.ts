@@ -47,3 +47,8 @@ export type OrderItem = Prisma.OrderItemModel
  * 
  */
 export type Lead = Prisma.LeadModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel

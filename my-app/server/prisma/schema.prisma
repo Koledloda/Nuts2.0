@@ -86,3 +86,15 @@ enum OrderStatus {
   COMPLETED
   CANCELLED
 }
+
+model User {
+  id       Int    @id @default(autoincrement())
+  login    String @unique
+  password String
+  role     Role   @default(USER)
+}
+
+enum Role {
+  USER
+  ADMIN
+}

@@ -4,7 +4,7 @@ import cors from 'cors';
 import { prisma } from './lib/prisma';
 import { ordersRouter } from './src/routes/orders';
 import { leadsRouter } from './src/routes/leads';
-
+import { authRouter } from './src/routes/auth';
 
 const app = express();
 app.use(express.json());
@@ -14,12 +14,12 @@ app.use(cors({
   origin: /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/,
   methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
 
-  allowedHeaders: ['Content-Type']
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use('/api/orders', ordersRouter);
-
 app.use('/api/leads', leadsRouter); 
+app.use('/api/auth', authRouter);
 
 app.get('/', (_req: any, res: any) => {
   res.json({ name: 'Nuts shop API', status: 'ok' });
