@@ -9,6 +9,7 @@ import {
   validateMiddleware,
   type TypedRequest,
 } from '../middleware/validate';
+import { authMiddleware, adminMiddleware } from '../middleware/auth';
 
 export const ordersRouter = Router();
 
@@ -103,7 +104,7 @@ ordersRouter.post(
 );
 
 
-ordersRouter.get('/', async (_req, res) => {
+ordersRouter.get('/', authMiddleware, adminMiddleware, async (_req, res) => {
   try {
     const orders = await prisma.order.findMany({
       include: {
@@ -124,6 +125,8 @@ ordersRouter.get('/', async (_req, res) => {
 
 ordersRouter.patch(
   '/:id/status',
+  authMiddleware,
+  adminMiddleware,
   validateMiddleware(updateOrderStatusSchema),
   async (req, res) => {
     const id = Number(req.params.id);

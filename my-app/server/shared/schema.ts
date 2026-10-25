@@ -51,3 +51,10 @@ export const updateOrderStatusSchema = z.object({
 });
 
 export type CheckoutInput = z.infer<typeof checkoutSchema>;
+
+export const loginSchema = z.object({
+  login: z.string().trim().min(1, 'Введите логин'),
+  password: z.string().min(1, 'Введите пароль'),
+});
+
+export type LoginInput = z.infer<typeof loginSchema>;

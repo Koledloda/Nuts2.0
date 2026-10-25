@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext, createContext, type ReactNode } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { type Product } from "../../api/products";
+import CartPayment from '../CartPayment';
 import './style.css';
 
 
@@ -97,6 +98,7 @@ export function useCart() {
 
 function CartWidget() {
     const { items, isOpen, setQuantity, removeItem, openCart, closeCart } = useCart();
+  const [isCheckout, setIsCheckout] = useState(false);
 
     const count = items.reduce((sum, item) => sum + item.quantity, 0);
     const total = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
@@ -116,7 +118,7 @@ function CartWidget() {
 
     return(
         <>
-        <button type="button" className="cart-float-button" onClick={openCart} aria-label={`Открыть корзину, товаров: ${count}`}> Телеха <span className="cart-count"> {count}</span></button>
+        <button type="button" className="cart-float-button" onClick={() => { setIsCheckout(false); openCart(); }} aria-label={`Открыть корзину, товаров: ${count}`}> Телеха <span className="cart-count"> {count}</span></button>
 
     {isOpen && (
         <div className="cart-layer">
@@ -148,7 +150,12 @@ function CartWidget() {
               </button>
             </header>
 
-            {items.length === 0 ? (
+            {isCheckout ? (
+              <CartPayment
+                total={total}
+                onBack={() => setIsCheckout(false)}
+              />
+            ) : items.length === 0 ? (
               <p className="cart-empty">Корзина пока пуста</p>
             ) : (
               <>
@@ -233,9 +240,18 @@ function CartWidget() {
                   </table>
                 </div>
 
-                <footer className="cart-total">
+                <div className="cart-total">
                   <span>Итого:</span>
                   <strong>{total.toLocaleString('ru-RU')} руб.</strong>
+                </div>
+                <footer className="cart-actions">
+                  <button
+                    type="button"
+                    className="cart-payment"
+                    onClick={() => setIsCheckout(true)}
+                  >
+                    Перейти к оформлению
+                  </button>
                 </footer>
               </>
             )}
