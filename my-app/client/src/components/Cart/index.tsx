@@ -16,6 +16,7 @@ type CartContextValue = {
   addItem: (product: Product) => void;
   setQuantity: (productId: number, quantity: number) => void;
   removeItem: (productId: number) => void;
+  clearCart: () => void;
   openCart: () => void;
   closeCart: () => void;
 };
@@ -78,9 +79,11 @@ const removeItem = (productId: number) => {
     );
 };
 
+const clearCart = () => setItems([]);
+
 
 return ( 
-    <CartContext.Provider value={{ items, isOpen, addItem, setQuantity, removeItem, openCart: () => setIsOpen(true), closeCart: () => setIsOpen(false),
+    <CartContext.Provider value={{ items, isOpen, addItem, setQuantity, removeItem, clearCart, openCart: () => setIsOpen(true), closeCart: () => setIsOpen(false),
      }}>
         {children}
     </CartContext.Provider>
@@ -97,7 +100,7 @@ export function useCart() {
 }
 
 function CartWidget() {
-    const { items, isOpen, setQuantity, removeItem, openCart, closeCart } = useCart();
+  const { items, isOpen, setQuantity, removeItem, clearCart, openCart, closeCart } = useCart();
   const [isCheckout, setIsCheckout] = useState(false);
 
     const count = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -114,7 +117,7 @@ function CartWidget() {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [isOpen, closeCart]);
 
-    if (count === 0) return null;
+    if (count === 0 && !isCheckout) return null;
 
     return(
         <>
@@ -153,6 +156,11 @@ function CartWidget() {
             {isCheckout ? (
               <CartPayment
                 total={total}
+                items={items.map(({ product, quantity }) => ({
+                  productId: product.id,
+                  quantity,
+                }))}
+                onOrderCreated={clearCart}
                 onBack={() => setIsCheckout(false)}
               />
             ) : items.length === 0 ? (
