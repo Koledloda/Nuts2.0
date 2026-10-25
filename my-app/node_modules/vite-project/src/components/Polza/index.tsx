@@ -1,56 +1,45 @@
 import './style.css';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { getProducts, type Product } from '../../api/products';
 
-const poleznie = [
-    {
-        id: 1,
-        img: 'https://415022.lp.tobiz.net/img/400x400/e5093ee29d011d36ef795fb40e5067ea.jpg',
-        title: 'Чиа семена',
-        description: 'Суперфуд с высоким содержанием антиоксидантов. Разбухают в жидкости, подходят для пудингов, смузи и выпечки.',
-        price: '2 190.00 руб.',
-    },
-    {
-        id: 2,
-        img: 'https://415022.lp.tobiz.net/img/400x400/7c68bba29cd66c0a751b13f6e38b6706.jpg',
-        title: 'Кедровые орехи',
-        description: 'Мелкие нежные ядрышки с лёгким хвойным ароматом. Богаты витаминами, идеальны для соусов, салатов и десертов.',
-        price: '770.00 руб.',
-    },
-    {
-        id: 3,
-        img: 'https://415022.lp.tobiz.net/img/400x400/13048b8f4a11867aab0326eb8be77f3f.jpg',
-        title: 'Льняные семена',
-        description: 'Крошечные, но очень полезные семена с высоким содержанием Омега-3. Добавляют в смузи, выпечку и йогурты.',
-        price: '349.00 руб.',
-    },
-    {
-        id: 4,
-        img: 'https://415022.lp.tobiz.net/img/400x400/ef26b497c268b5ef107c8b4fc19018bb.jpg',
-        title: 'Тыквенные семечки',
-        description: 'Натуральный источник цинка и магния. Хрустящие, слегка сладковатые, хороши в салатах, кашах и как перекус.',
-        price: '560.00 руб.',
-    },
-];
 
 export default function Poleznie() {
+    const [hits, setHits] = useState<Product[]>([]);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        getProducts('useful', controller.signal)
+            .then((result) => setHits(result.data))
+            .catch((err: Error) => {
+                if (err.name !== 'AbortError') setError(err.message);
+            });
+
+        return () => controller.abort();
+    }, []);
+
     return (
         <main className='block'>
             <div className='content'>
                 <div className='section'>
-                    <div className='polza_header'>
+                    <div className='premium_header'>
                         <div className='block_name'>
                             <h1 className='block_name_name'>Полезные</h1>
                             <h1 className='block_name_nxname'>для правильного питания</h1>
                         </div>
                         <p className='block_sub'>В нашем магазине вы найдете любые виды орехов и семян</p>
                     </div>
-                    {poleznie.map((poleznie) => (
-                        <article className='card' key={poleznie.id}>
-                            <img className='card_img' src={poleznie.img} alt={poleznie.title}/>
+                        {error && <p>Не удалось загрузить товары: {error}</p>}
+                         {hits.map((hit) => (
+                        <article className='card' key={hit.id}>
+                            <img className='card_img' src={hit.images[0]?.url} alt={hit.title}/>
                             <div className='card_content'>
-                                <h2>{poleznie.title}</h2>
-                                <p>{poleznie.description}</p>
-                                <p>{poleznie.price}</p>
-                                <button className='sell'>Заказать</button>
+                                <h2>{hit.title}</h2>
+                                <p>{hit.description}</p>
+                                <p className="card_price">{hit.price.toLocaleString('ru-RU')} руб.</p>
+                                <Link className='sell' to={`/product/${hit.slug}`}>Заказать</Link>
                             </div>
                         </article>  
                     ))}

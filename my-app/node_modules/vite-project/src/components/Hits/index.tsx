@@ -1,30 +1,24 @@
 import './style.css';
-
-const hits = [
-    {
-        id: 1,
-        img: 'https://415022.lp.tobiz.net/img/300x300/0e3cab38d860aa4b36990410c484115b.jpg',
-        title: 'Семечки подсолнечника',
-        description: 'Аппетитные золотистые ядрышки с приятным ароматом. Отлично подходят к пиву или как самостоятельный вкусный и полезный перекус.',
-        price: '1 499.00 руб.',
-    },
-    {
-        id: 2,
-        img: 'https://415022.lp.tobiz.net/img/300x300/2fca8ef7c69e814a5b863e9aea1150b9.jpg',
-        title: 'Миндаль сырой',
-        description: 'Хрустящие орешки с нежным сладковатым вкусом. Содержат витамин Е, полезны для кожи и сердца. Прекрасный вариант для перекуса.',
-        price: '349.00 руб.',
-    },
-    {
-        id: 3,
-        img: 'https://415022.lp.tobiz.net/img/300x300/b4832320fc5f587bc2b7a79186bc22f9.jpg',
-        title: 'Грецкие орехи',
-        description: 'Крупные ядра с насыщенным вкусом, богаты полезными жирами. Идеальны для десертов, выпечки и здоровых перекусов в течение дня.',
-        price: '190.00 руб.',
-    },
-];
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { getProducts, type Product } from '../../api/products';
 
 export default function Hits() {
+    const [hits, setHits] = useState<Product[]>([]);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        getProducts('popular', controller.signal)
+            .then((result) => setHits(result.data))
+            .catch((err: Error) => {
+                if (err.name !== 'AbortError') setError(err.message);
+            });
+
+        return () => controller.abort();
+    }, []);
+
     return (
         <main className='block'>
             <div className='block_header'>
@@ -42,14 +36,15 @@ export default function Hits() {
                         <p>Полезные</p>
                         <p>Экзотические</p>
                     </div>
+                    {error && <p>Не удалось загрузить товары: {error}</p>}
                     {hits.map((hit) => (
                         <article className='card' key={hit.id}>
-                            <img className='card_img' src={hit.img} alt={hit.title}/>
+                            <img className='card_img' src={hit.images[0]?.url} alt={hit.title}/>
                             <div className='card_content'>
                                 <h2>{hit.title}</h2>
                                 <p>{hit.description}</p>
-                                <p>{hit.price}</p>
-                                <button className='sell'>Заказать</button>
+                                <p className="card_price">{hit.price.toLocaleString('ru-RU')} руб.</p>
+                                <Link className='sell' to={`/product/${hit.slug}`}>Заказать</Link>
                             </div>
                         </article>  
                     ))}

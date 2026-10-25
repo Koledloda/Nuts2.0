@@ -1,37 +1,25 @@
 import './style.css';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { getProducts, type Product } from '../../api/products';
 
-const hits = [
-    {
-        id: 1,
-        img: 'https://415022.lp.tobiz.net/img/400x400/d2a2e1f66879ae32334f4b1797402db2.jpg',
-        title: 'Орехи макадамия',
-        description: 'Изысканное сочетание хрустящих орехов и гладкого шоколада. Роскошный десерт для настоящих гурманов и ценителей.',
-        price: '430.00 руб.',
-    },
-    {
-        id: 2,
-        img: 'https://415022.lp.tobiz.net/img/400x400/c3046db11672212db375655137805c7a.jpg',
-        title: 'Орехи пекан',
-        description: 'Маслянистые ядра с нежным вкусом, напоминающим грецкий орех. Отлично дополняет десерты, выпечку и сырные тарелки.',
-        price: '399.00 руб.',
-    },
-    {
-        id: 3,
-        img: 'https://415022.lp.tobiz.net/img/400x400/4e80af4789da8103cc4a9ce57696547f.jpg',
-        title: 'Фисташки солёные',
-        description: 'Пикантные раскрывшиеся орешки с ярким вкусом. Содержат полезные жиры и белок, любимое лакомство для многих.',
-        price: '249.00 руб.',
-    },
-    {
-        id: 4,
-        img: 'https://415022.lp.tobiz.net/img/400x400/bc6280d5a7bf5267b720c7bb0e16bf3b.jpg',
-        title: 'Кешью обжаренные',
-        description: 'Нежные маслянистые орехи с деликатным сладковатым вкусом. Богаты железом и цинком, хороши сами по себе и в блюдах.',
-        price: '190.00 руб.',
-    },
-];
 
-export default function Hits() {
+export default function Premium() {
+    const [hits, setHits] = useState<Product[]>([]);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        getProducts('premium', controller.signal)
+            .then((result) => setHits(result.data))
+            .catch((err: Error) => {
+                if (err.name !== 'AbortError') setError(err.message);
+            });
+
+        return () => controller.abort();
+    }, []);
+
     return (
         <main className='block'>
             <div className='content'>
@@ -43,14 +31,15 @@ export default function Hits() {
                         </div>
                         <p className='block_sub'>В нашем магазине вы найдете любые виды орехов и семян</p>
                     </div>
-                    {hits.map((hit) => (
+                        {error && <p>Не удалось загрузить товары: {error}</p>}
+                         {hits.map((hit) => (
                         <article className='card' key={hit.id}>
-                            <img className='card_img' src={hit.img} alt={hit.title}/>
+                            <img className='card_img' src={hit.images[0]?.url} alt={hit.title}/>
                             <div className='card_content'>
                                 <h2>{hit.title}</h2>
                                 <p>{hit.description}</p>
-                                <p>{hit.price}</p>
-                                <button className='sell'>Заказать</button>
+                                <p className="card_price">{hit.price.toLocaleString('ru-RU')} руб.</p>
+                                <Link className='sell' to={`/product/${hit.slug}`}>Заказать</Link>
                             </div>
                         </article>  
                     ))}
