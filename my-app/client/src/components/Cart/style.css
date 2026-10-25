@@ -140,11 +140,19 @@
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: auto;
   padding: 20px 24px;
   border-top: 1px solid #e5e5e5;
   background: #f7f7f7;
   font-size: 20px;
+}
+
+.cart-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  padding: 14px 24px;
+  border-top: 1px solid #e5e5e5;
+  background: #f7f7f7;
 }
 
 .visually-hidden {
@@ -165,4 +173,14 @@
   .cart-table {
     min-width: 650px;
   }
+}
+
+.cart-payment {
+  border: 0;
+  padding: 12px 16px;
+  background: #d8ea7c;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
 }
