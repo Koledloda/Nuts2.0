@@ -13,7 +13,6 @@ import { authMiddleware, adminMiddleware } from '../middleware/auth';
 
 export const ordersRouter = Router();
 
-// Создание заказа
 ordersRouter.post(
   '/',
   validateMiddleware(checkoutSchema),
